@@ -7,13 +7,48 @@ import java.io.IOException;
 
 public class ScriptPigUTest {
 
+    private final String SCRIPT_PATH = "./src/main/script.pig";
+
     @Test
-    public void top2Queries() throws IOException, ParseException {
+    public void queries_group_ShouldGenerateBagsOfElement_WithSameQueryString() throws IOException, ParseException {
+        // Given
         String[] args = {
                 "n=2",
         };
 
-        PigTest test = new PigTest("./src/main/script.pig", args);
+        PigTest test = new PigTest(SCRIPT_PATH, args);
+
+        String[] input = {
+                "yahoo",
+                "yahoo",
+                "yahoo",
+                "twitter",
+                "facebook",
+                "facebook",
+                "linkedin",
+        };
+
+        String[] expected = {
+                "(yahoo,{(yahoo),(yahoo),(yahoo)})",
+                "(twitter,{(twitter)})",
+                "(facebook,{(facebook),(facebook)})",
+                "(linkedin,{(linkedin)})",
+        };
+
+        // When
+        test.runScript();
+
+        // Then
+        test.assertOutput("data", input, "queries_group", expected);
+    }
+
+    @Test
+    public void testTop2Queries() throws IOException, ParseException {
+        String[] args = {
+                "n=2",
+        };
+
+        PigTest test = new PigTest(SCRIPT_PATH, args);
 
         String[] input = {
                 "yahoo",
