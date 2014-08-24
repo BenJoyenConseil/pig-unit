@@ -80,6 +80,7 @@
                 <configuration>
                     <additionalClasspathElements>
                         <additionalClasspathElement>/etc/hadoop/conf</additionalClasspathElement>
+                        <additionalClasspathElement>/etc/pig/conf</additionalClasspathElement>
                     </additionalClasspathElements>
                 </configuration>
             </plugin>
