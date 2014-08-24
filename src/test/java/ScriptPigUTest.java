@@ -1,11 +1,25 @@
+import org.apache.hadoop.fs.Path;
+import org.apache.pig.ExecType;
+import org.apache.pig.pigunit.Cluster;
 import org.apache.pig.pigunit.PigTest;
+import org.apache.pig.pigunit.pig.PigServer;
 import org.apache.pig.tools.parameters.ParseException;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
 
 
 public class ScriptPigUTest {
+
+
+    private PigTest test;
+    private static Cluster cluster;
+
+    @BeforeClass
+    public static void setUpOnce() throws IOException {
+        cluster = PigTest.getCluster();
+    }
 
     private final String SCRIPT_PATH = "./src/main/script.pig";
 
@@ -16,7 +30,7 @@ public class ScriptPigUTest {
                 "n=2",
         };
 
-        PigTest test = new PigTest(SCRIPT_PATH, args);
+        PigTest test = new PigTest(SCRIPT_PATH, args, new PigServer(ExecType.MAPREDUCE), cluster);
 
         String[] input = {
                 "yahoo",
@@ -48,7 +62,7 @@ public class ScriptPigUTest {
                 "n=2",
         };
 
-        PigTest test = new PigTest(SCRIPT_PATH, args);
+        PigTest test = new PigTest(SCRIPT_PATH, args, new PigServer(ExecType.MAPREDUCE), cluster);
 
         String[] input = {
                 "yahoo",
