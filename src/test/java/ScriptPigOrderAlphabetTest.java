@@ -17,7 +17,7 @@ public class ScriptPigOrderAlphabetTest {
 
     @Before
     public void setup() throws ExecException {
-        PigServer pig = null;
+        pig = null;
         if (System.getProperties().containsKey("pigunit.exectype.cluster")) {
             System.out.println("Using cluster mode");
             pig = new PigServer(ExecType.MAPREDUCE);
