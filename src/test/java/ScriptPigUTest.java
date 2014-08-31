@@ -19,8 +19,10 @@ public class ScriptPigUTest {
     public void setup() throws ExecException {
         PigServer pig = null;
         if (System.getProperties().containsKey("pigunit.exectype.cluster")) {
+            System.out.println("Using cluster mode");
             pig = new PigServer(ExecType.MAPREDUCE);
         } else {
+            System.out.println("Using default local mode");
             pig = new PigServer(ExecType.LOCAL);
         }
     }
