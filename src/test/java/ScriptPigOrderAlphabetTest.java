@@ -13,6 +13,7 @@ public class ScriptPigOrderAlphabetTest {
 
     private String scriptPath = "./src/main/script_order_alphabet.pig";
     private PigServer pig;
+    private Cluster cluster;
 
     @Before
     public void setup() throws ExecException {
@@ -24,14 +25,13 @@ public class ScriptPigOrderAlphabetTest {
             System.out.println("Using default local mode");
             pig = new PigServer(ExecType.LOCAL);
         }
+        cluster = new Cluster(pig.getPigContext());
     }
 
     @Test
     public void data_ordered_shouldOrderElementsBy_Alphabet() throws IOException, ParseException {
         // Given
         String[] args = {};
-        final Cluster cluster = new Cluster(pig.getPigContext());
-
         PigTest test = new PigTest(scriptPath, args, pig, cluster);
 
         String[] input = {

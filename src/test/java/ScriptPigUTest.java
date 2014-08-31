@@ -14,6 +14,7 @@ public class ScriptPigUTest {
 
     private final String scriptPath = "./src/main/script.pig";
     private PigServer pig;
+    private Cluster cluster;
 
     @Before
     public void setup() throws ExecException {
@@ -25,6 +26,7 @@ public class ScriptPigUTest {
             System.out.println("Using default local mode");
             pig = new PigServer(ExecType.LOCAL);
         }
+        cluster = new Cluster(pig.getPigContext());
     }
 
 
@@ -34,9 +36,6 @@ public class ScriptPigUTest {
         String[] args = {
                 "n=2",
         };
-
-        final Cluster cluster = new Cluster(pig.getPigContext());
-
         PigTest test = new PigTest(scriptPath, args, pig, cluster);
 
         String[] input = {
@@ -68,10 +67,6 @@ public class ScriptPigUTest {
         String[] args = {
                 "n=2",
         };
-
-
-        final Cluster cluster = new Cluster(pig.getPigContext());
-
         PigTest test = new PigTest(scriptPath, args, pig, cluster);
 
         String[] input = {
