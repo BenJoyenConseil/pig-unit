@@ -1,5 +1,10 @@
+import org.apache.pig.ExecType;
+import org.apache.pig.backend.executionengine.ExecException;
+import org.apache.pig.pigunit.Cluster;
 import org.apache.pig.pigunit.PigTest;
+import org.apache.pig.pigunit.pig.PigServer;
 import org.apache.pig.tools.parameters.ParseException;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -7,7 +12,19 @@ import java.io.IOException;
 
 public class ScriptPigUTest {
 
-    private final String SCRIPT_PATH = "./src/main/script.pig";
+    private final String scriptPath = "./src/main/script.pig";
+    private PigServer pig;
+
+    @Before
+    public void setup() throws ExecException {
+        PigServer pig = null;
+        if (System.getProperties().containsKey("pigunit.exectype.cluster")) {
+            pig = new PigServer(ExecType.MAPREDUCE);
+        } else {
+            pig = new PigServer(ExecType.LOCAL);
+        }
+    }
+
 
     @Test
     public void queries_group_ShouldGenerateBagsOfElement_WithSameQueryString() throws IOException, ParseException {
@@ -16,7 +33,9 @@ public class ScriptPigUTest {
                 "n=2",
         };
 
-        PigTest test = new PigTest(SCRIPT_PATH, args);
+        final Cluster cluster = new Cluster(pig.getPigContext());
+
+        PigTest test = new PigTest(scriptPath, args, pig, cluster);
 
         String[] input = {
                 "yahoo",
@@ -48,7 +67,10 @@ public class ScriptPigUTest {
                 "n=2",
         };
 
-        PigTest test = new PigTest(SCRIPT_PATH, args);
+
+        final Cluster cluster = new Cluster(pig.getPigContext());
+
+        PigTest test = new PigTest(scriptPath, args, pig, cluster);
 
         String[] input = {
                 "yahoo",
