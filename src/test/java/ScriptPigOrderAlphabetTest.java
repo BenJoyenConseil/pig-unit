@@ -12,27 +12,12 @@ import java.io.IOException;
 public class ScriptPigOrderAlphabetTest {
 
     private String scriptPath = "./src/main/script_order_alphabet.pig";
-    private PigServer pig;
-    private Cluster cluster;
-
-    @Before
-    public void setup() throws ExecException {
-        pig = null;
-        if (System.getProperties().containsKey("pigunit.exectype.cluster")) {
-            System.out.println("Using cluster mode");
-            pig = new PigServer(ExecType.MAPREDUCE);
-        } else {
-            System.out.println("Using default local mode");
-            pig = new PigServer(ExecType.LOCAL);
-        }
-        cluster = new Cluster(pig.getPigContext());
-    }
 
     @Test
     public void data_ordered_shouldOrderElementsBy_Alphabet() throws IOException, ParseException {
         // Given
         String[] args = {};
-        PigTest test = new PigTest(scriptPath, args, pig, cluster);
+        PigTest test = new PigTest(scriptPath, args);
 
         String[] input = {
                 "yahoo",

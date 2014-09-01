@@ -13,21 +13,6 @@ import java.io.IOException;
 public class ScriptPigUTest {
 
     private final String scriptPath = "./src/main/script.pig";
-    private PigServer pig;
-    private Cluster cluster;
-
-    @Before
-    public void setup() throws ExecException {
-        pig = null;
-        if (System.getProperties().containsKey("pigunit.exectype.cluster")) {
-            System.out.println("Using cluster mode");
-            pig = new PigServer(ExecType.MAPREDUCE);
-        } else {
-            System.out.println("Using default local mode");
-            pig = new PigServer(ExecType.LOCAL);
-        }
-        cluster = new Cluster(pig.getPigContext());
-    }
 
 
     @Test
@@ -36,7 +21,7 @@ public class ScriptPigUTest {
         String[] args = {
                 "n=2",
         };
-        PigTest test = new PigTest(scriptPath, args, pig, cluster);
+        PigTest test = new PigTest(scriptPath, args);
 
         String[] input = {
                 "yahoo",
@@ -67,7 +52,7 @@ public class ScriptPigUTest {
         String[] args = {
                 "n=2",
         };
-        PigTest test = new PigTest(scriptPath, args, pig, cluster);
+        PigTest test = new PigTest(scriptPath, args);
 
         String[] input = {
                 "yahoo",
