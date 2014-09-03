@@ -88,7 +88,7 @@
                     <additionalClasspathElements>
                         <additionalClasspathElement>/etc/hadoop/conf</additionalClasspathElement>
                         <!--<additionalClasspathElement>/etc/pig/conf</additionalClasspathElement>-->
-                        <additionalClasspathElement>/usr/lib/pig</additionalClasspathElement>
+                        <!--<additionalClasspathElement>/usr/lib/pig</additionalClasspathElement>-->
                     </additionalClasspathElements>
                 </configuration>
             </plugin>
