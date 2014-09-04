@@ -1,6 +1,6 @@
 data =
     LOAD 'input'
-    AS (query:CHARARRAY);
+    AS (query:chararray);
 
 queries_group =
     GROUP data
